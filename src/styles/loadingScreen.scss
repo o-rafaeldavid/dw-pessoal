@@ -1,0 +1,20 @@
+@import "./main.scss";
+
+#LOADINGSCREEN{
+    background-color: black;
+    z-index: 100;
+    position: sticky !important;
+    @include pos(0, 0);
+
+    > .dynamicText{
+        @include centrado();
+        opacity: 0;
+        animation: showLoading 2000ms forwards;
+    }
+}
+
+@keyframes showLoading {
+    0% { opacity: 0; }
+    20% { opacity: 1; }
+    100% { opacity: 0; }
+}

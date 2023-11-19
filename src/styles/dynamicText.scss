@@ -1,0 +1,19 @@
+.dynamicText{
+    position: relative;
+    > h1{
+        &.blur{
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        > .dynamicSpan{
+            display: inline-block;
+            padding: 0;
+        
+            &.space{
+                opacity: 0;
+            }
+        }
+    }
+}

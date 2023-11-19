@@ -1,0 +1,9 @@
+@import "./main.scss";
+
+#greetings{
+  @include centrado();
+
+  > .showText:has(h5){
+    text-align: right;
+  }
+}

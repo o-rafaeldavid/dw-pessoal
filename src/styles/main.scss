@@ -1,0 +1,122 @@
+@use "sass:list";
+////////////////////////////////////////////////
+//////////// root
+:root {
+  font-family: Poppins, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-weight: 400;
+
+  color-scheme: light dark;
+  color: rgba(255, 255, 255, 0.87);
+  background-color: black;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
+}
+
+////////////////////////////////////////////////
+//////////// global mixins
+
+@mixin SyneFamily{
+  font-family: Syne, sans-serif;
+}
+
+@mixin notAround(){
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+@mixin pos($t: 0, $l: 0){
+  top: $t;
+  left: $l;
+}
+
+@mixin dim($w: auto, $h: auto){
+  width: $w;
+  height: $h;
+}
+
+@mixin centrado(){
+  position: absolute;
+  @include pos(50%, 50%);
+  transform: translate(-50%, -50%);
+}
+
+////////////////////////////////////////////////
+//////////// html tags
+
+$tamanhoHeadings: 128pt, 74pt, 36pt, 20pt, 14pt, 8pt;
+@for $i from 1 to 7{
+  h#{$i}{
+    @include notAround();
+    font-size: list.nth($tamanhoHeadings, $i)
+  }
+}
+
+*{
+  user-select: none;
+}
+
+html, body{
+  @include notAround();
+  overflow: hidden;
+}
+
+h1{
+  @include SyneFamily();
+  font-size: 128pt;
+  text-wrap: nowrap;
+  cursor: default;
+}
+
+h4{
+  font-weight: 500;
+}
+
+h5{
+  font-family: "Roboto Mono", monospace;
+  font-weight: 500;
+}
+
+////////////////////////////////////////////////
+//////////// classes
+
+.viewport{
+  width: 100dvw;
+  height: 100dvh;
+  background-color: black;
+  overflow: auto;
+
+  &:not(#LOADINGSCREEN){
+    position: absolute;
+    @include pos(100%, 0);
+    opacity: 0;
+  
+    transition: 150ms top ease-in-out, 150ms left ease-in-out, 600ms opacity ease-in-out;
+
+    &.horizontal{
+      @include pos(0, 100%);
+
+      &.onLeft{
+        left: -100%;
+      }
+
+      &.viewing{ left: 0; }
+    }
+
+    &.vertical{
+      @include pos(100%, 0);
+
+      &.onTop{
+        top: -100%;
+      }
+
+      &.viewing{ top: 0; }
+    }
+
+    &.viewing{ opacity: 1; }
+  }
+}
