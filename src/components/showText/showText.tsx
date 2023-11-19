@@ -16,7 +16,7 @@ export default function ShowText({children, doShow, rotate, doRotate} : Props){
         texto = React.Children.toArray(children);
     }
     else{
-        texto = <p style={CSS}>
+        texto = <p>
             {children}
         </p>
     }
