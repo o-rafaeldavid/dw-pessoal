@@ -1,5 +1,3 @@
-import { useContext, useEffect, useRef, useState } from 'react'
-
 import ChooseProject from '../components/chooseProject/chooseProject'
 import SomethingScroll from '../components/somethingScroll'
 
@@ -7,6 +5,7 @@ import Viewport from '../components/viewport'
 import DynamicText from '../components/dynamicText/dynamicText'
 import ShowText from '../components/showText/showText'
 import '../styles/index.scss'
+import "../styles/showText.scss"
 
 function Index() {
 
@@ -29,11 +28,9 @@ function Index() {
             <h4>OLÁ! EU SOU</h4>
           </ShowText>
 
-          <ShowText doShow={true} rotate={true} doRotate={true}>
+          <ShowText doShow={true} rotate={false} doRotate={false}>
             <DynamicText
-              loading={false}
               mouse={true}
-              /* notMouseObject={{x: undefined, y: undefined}} */
             >
               RAFAEL DAVID
             </DynamicText>

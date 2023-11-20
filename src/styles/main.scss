@@ -52,7 +52,8 @@ $tamanhoHeadings: 128pt, 74pt, 36pt, 20pt, 14pt, 8pt;
 @for $i from 1 to 7{
   h#{$i}{
     @include notAround();
-    font-size: list.nth($tamanhoHeadings, $i)
+    font-size: list.nth($tamanhoHeadings, $i);
+    cursor: default;
   }
 }
 
@@ -65,11 +66,10 @@ html, body{
   overflow: hidden;
 }
 
-h1{
+h1, h2{
   @include SyneFamily();
-  font-size: 128pt;
   text-wrap: nowrap;
-  cursor: default;
+  white-space: nowrap;
 }
 
 h4{
@@ -81,40 +81,50 @@ h5{
   font-weight: 500;
 }
 
+body{
+  position: relative;
+}
+
 ////////////////////////////////////////////////
 //////////// classes
 
 .viewport{
   width: 100dvw;
   height: 100dvh;
-  background-color: black;
-  overflow: auto;
+  overflow: hidden;
 
   &:not(#LOADINGSCREEN){
     position: absolute;
-    @include pos(100%, 0);
     opacity: 0;
   
     transition: 150ms top ease-in-out, 150ms left ease-in-out, 600ms opacity ease-in-out;
 
     &.horizontal{
-      @include pos(0, 100%);
+      //@include pos(0, 100%);
 
       &.onLeft{
         left: -100%;
       }
 
       &.viewing{ left: 0; }
+
+      &:not(.viewing, .onLeft){
+        @include pos(0, 100%);
+      }
     }
 
     &.vertical{
-      @include pos(100%, 0);
+      //@include pos(100%, 0);
 
       &.onTop{
         top: -100%;
       }
 
       &.viewing{ top: 0; }
+
+      &:not(.viewing, .onTop){
+        @include pos(100%, 0);
+      }
     }
 
     &.viewing{ opacity: 1; }

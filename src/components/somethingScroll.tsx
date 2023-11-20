@@ -40,7 +40,7 @@ export default function SomethingScroll({direction} : Props){
                 ||
                 isMobile && (isSwipe.vertical.cima || isSwipe.horizontal.esquerda) //MOBILE: Swipe para cima/esquerda (vai para o proximo)
               )
-              && nextElement !== null){
+              && nextElement !== null && nextElement.classList.contains('viewport')){
 
               viewingElement?.classList.remove('viewing');
               if( WHEEL_DESKTOP ||
@@ -60,7 +60,7 @@ export default function SomethingScroll({direction} : Props){
                 ||
                 isMobile && (isSwipe.vertical.baixo || isSwipe.horizontal.direita) //MOBILE: Swipe para baixo/direita (volta para o anterior)
               )
-              && prevElement !== null){
+              && prevElement !== null && prevElement.classList.contains('viewport')){
 
               viewingElement?.classList.remove('viewing');
     
@@ -72,6 +72,7 @@ export default function SomethingScroll({direction} : Props){
                         ||
                         (isSwipe.horizontal.direita && direction === "horizontal") ) ){
 
+                          console.log(classes.anterior)
                     prevElement?.classList.remove(classes.anterior)
                     prevElement?.classList.add('viewing')
                   }

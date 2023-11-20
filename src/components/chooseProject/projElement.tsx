@@ -1,7 +1,4 @@
-import { ImgHTMLAttributes, MouseEventHandler, useEffect, useRef, useState } from "react"
-import { useNavigate, To } from "react-router-dom"
 import LoadLink from "../loadLink"
-
 
 interface XYZprops{
     x: number
@@ -60,7 +57,29 @@ export default function ChooseProject({rotate, translate, direction, journeyInde
     
 
     return(
-        <li className="projElement" style={style}>
+        <li className="projElement" style={style}
+            onMouseEnter={(e) => {
+                const toHTMLcollecion = Array.from(document.getElementsByClassName('sceneInfo') as HTMLCollectionOf<HTMLElement>);
+                const sceneInfo = toHTMLcollecion[0];
+
+                if(sceneInfo !== undefined){
+                    sceneInfo.classList.add('showing')
+                    sceneInfo.style.top = e.clientY + 10 + "px"
+                    sceneInfo.style.left = e.clientX + 10 + "px"
+                    sceneInfo.querySelector('strong').innerText = `${journeyIndex} | ${name}`
+                }
+            }}
+
+            onMouseLeave={() => {
+                const toHTMLcollecion = Array.from(document.getElementsByClassName('sceneInfo') as HTMLCollectionOf<HTMLElement>);
+                const sceneInfo = toHTMLcollecion[0];
+
+                if(sceneInfo !== undefined){
+                    sceneInfo.classList.remove('showing')
+
+                }
+            }}
+        >
             {imageElement}
             <LoadLink to="/journey" options={{state: journeyIndex}}/>
         </li>

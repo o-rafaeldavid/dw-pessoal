@@ -1,0 +1,37 @@
+#numero{
+    position: relative;
+    color: white;
+    display: flex;
+    flex-direction: column-reverse;
+
+    height: 100dvh;
+    margin-left: 100px;
+
+   
+
+    > span{
+        font-size: 1000px;
+        line-height: 0.8;
+        position: absolute;
+
+        opacity: 0.2;
+        filter: blur(20px);
+
+        transition: opacity 150ms, filter 150ms;
+
+        &:first-child{
+            filter: blur(100px);
+        }
+    }
+
+    &.transicionar{
+        > span{
+            opacity: 1;
+
+            &:last-child{
+                filter: blur(0px);
+            }
+        }
+    }
+
+}

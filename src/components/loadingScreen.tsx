@@ -4,7 +4,7 @@ import Viewport from "./viewport"
 import DynamicText from "./dynamicText/dynamicText"
 
 import "../styles/loadingScreen.scss"
-import { createBrowserRouter, useLocation, useNavigate, useRoutes } from "react-router-dom"
+import { useLocation, useNavigate } from "react-router-dom"
 
 
 export default function LoadingScreen(){
@@ -111,7 +111,6 @@ export default function LoadingScreen(){
     return(
         <Viewport id="LOADINGSCREEN">
             <DynamicText
-              loading={false}
               mouse={false}
               notMouseObject={object}
             >

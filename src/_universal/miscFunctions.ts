@@ -10,7 +10,7 @@ export function sendStateToLoading(stateToRoute : any, route : To, from : To){
 }
 
 export function useEventListener(
-    DOC : HTMLElement | Window,
+    DOC : HTMLElement | Window | Document,
     type: string,
     listener: EventListenerOrEventListenerObject,
     options?: boolean | AddEventListenerOptions

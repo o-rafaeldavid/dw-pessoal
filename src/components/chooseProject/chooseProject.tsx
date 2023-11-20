@@ -137,13 +137,23 @@ export default function ChooseProject(){
         <Viewport id="chooseProject">
             {/* O MEU TRAJETO QUANTO A DM
                 =========== */}
-            <h1>CONHECE O PROCESSO</h1>
+            <h2>CONHECE O PROCESSO</h2>
+
+            
+            <div className="sceneInfo">
+                <strong>teste</strong>
+                <br/>
+                <span>info</span>
+            </div>
+
+
             <div className="scene"
                 
                 onMouseDown={ (e) => {triggers.onmouseDown(e)} }
                 onMouseMove={ (e) => {triggers.onmouseMove(e)} }
                 onMouseUp={ (e) => {triggers.onmouseUp(e)} }
             >
+                
                 <ol
                     style={{
                         transform: `rotateX(${sceneRotation.x[0]}deg)

@@ -1,9 +1,14 @@
 
 
 #chooseProject{
-    .scene{
-        perspective: 2100px;
-        perspective-origin: 50% 50%;
+    > h2{
+        text-align: center;
+        margin: 24px auto 0;
+    }
+
+    > .scene{
+        perspective: 1000px;
+        perspective-origin: 50% 70%;
 
         position: absolute;
         top: 50%;
@@ -67,5 +72,23 @@
             }
         }
     }
-}
 
+    > .sceneInfo{
+        position: absolute;
+        padding: 12px;
+        background-color: white;
+        color: black;
+        width: 0;
+        min-width: 0;
+        opacity: 0;
+        z-index: 1;
+
+        transition: opacity 300ms, min-width 300ms ease-in, width 300ms ease-in;
+
+        &.showing{
+            opacity: 1;
+            min-width: 300px;
+            width: auto;
+        }
+    }
+}

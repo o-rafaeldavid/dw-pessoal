@@ -1,12 +1,11 @@
-import React, { useState, useEffect } from "react"
+import React, { useState, useEffect, useMemo } from "react"
+import { useEventListener, getPosition } from "../../_universal/miscFunctions"
+import { Position } from "../../_universal/interfaces"
 
-interface PositionProps{
-    x: number
-    y: number
-}
+
 interface MousePosContextProps {
-    mousePagePos: PositionProps
-    setMousePagePos: React.Dispatch<React.SetStateAction<PositionProps>>
+    mousePagePos: Position
+    setMousePagePos: React.Dispatch<React.SetStateAction<Position>>
 }
 
 export const MousePosContext = React.createContext({} as MousePosContextProps);
@@ -16,28 +15,36 @@ interface Props {
 }
 
 export default function MousePagePosProvider({children} : Props){
-    const [mousePagePos, setMousePagePos] = useState({
-        x: 0,
-        y: 0
-    });
+    const [mousePagePos, setMousePagePos] = useState(getPosition(
+        window.innerWidth*0.5,
+        window.innerHeight*0.5
+    ));
 
     const setarRato = (e : MouseEvent) => {
-        setMousePagePos({
-            x: e.pageX,
-            y: e.pageY
-        })
+        setMousePagePos(getPosition(
+            e.pageX,
+            e.pageY
+        ))
     }
 
-    useEffect(
+    useEventListener(document, "mousemove", setarRato);
+
+    useMemo(
         () => {
-            document.addEventListener("mousemove", setarRato);
+            let timeout = setTimeout(
+                () => {
+                    setMousePagePos(getPosition(
+                        window.innerWidth*0.5,
+                        window.innerHeight*0.5
+                    ))
+                }, 100
+            )
 
-            return () => {
-                document.removeEventListener("mousemove", setarRato);
-            }
+            return () => { clearTimeout(timeout) }
         }, []
-    );
+    )
 
+    
     
     return(
         <MousePosContext.Provider value={{mousePagePos, setMousePagePos}}>{children}</MousePosContext.Provider>

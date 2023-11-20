@@ -8,13 +8,12 @@ interface NOTMouseObject {
 
 interface Props {
     children: string,
-    loading: boolean
     mouse: boolean
     notMouseObject?: NOTMouseObject
 }
 
 
-export default function DynamicText({children, loading, mouse, notMouseObject} : Props){
+export default function DynamicText({children, mouse, notMouseObject} : Props){
 
     const texto = children.split('');
 
@@ -22,7 +21,7 @@ export default function DynamicText({children, loading, mouse, notMouseObject} :
     texto.forEach(
         (txt, index) => {
 
-            const classname = ((txt === ' ') ? " space" : "") + ((loading) ? " loading" : "");
+            const classname = ((txt === ' ') ? " space" : "");
             txt = (txt === ' ') ? "–" : txt;
 
             spanMapping.push(
