@@ -2,7 +2,6 @@ import React, { useState, useEffect, useMemo } from "react"
 import { useEventListener, getPosition } from "../../_universal/miscFunctions"
 import { Position } from "../../_universal/interfaces"
 
-
 interface MousePosContextProps {
     mousePagePos: Position
     setMousePagePos: React.Dispatch<React.SetStateAction<Position>>

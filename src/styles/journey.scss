@@ -7,17 +7,20 @@
     height: 100dvh;
     margin-left: 100px;
 
+    z-index: -1;
    
 
     > span{
         font-size: 1000px;
-        line-height: 0.8;
+        line-height: 0.75;
         position: absolute;
 
         opacity: 0.2;
         filter: blur(20px);
+        scale: 1.2;
+        transform-origin: bottom;
 
-        transition: opacity 150ms, filter 150ms;
+        transition: line-height 150ms, scale 150ms, opacity 150ms, filter 150ms;
 
         &:first-child{
             filter: blur(100px);
@@ -27,6 +30,8 @@
     &.transicionar{
         > span{
             opacity: 1;
+            scale: 1;
+            line-height: 0.8;
 
             &:last-child{
                 filter: blur(0px);

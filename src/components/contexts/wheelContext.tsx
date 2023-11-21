@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
+import { useEventListener } from "../../_universal/miscFunctions";
 
 interface WheelContextProps {
     isWheel: boolean,
@@ -25,14 +26,16 @@ export default function WheelProvider({children} : Props){
         if(!isWheel){ setWheel(true); setTrigger(true); console.log(isWheel); setTWE(e)}
     }
 
-    useEffect(
+    /* useEffect(
         () => {
             body.addEventListener('wheel', (e) => { doWheel(e) })
             return () => {
                 body.removeEventListener('wheel', (e) => { doWheel(e) })
             }
         }, []
-    );
+    ); */
+
+    useEventListener(body, 'wheel', (e : WheelEvent) => { doWheel(e) } )
 
     useEffect(
         () => {

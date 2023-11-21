@@ -1,0 +1,51 @@
+@import "./main.scss";
+
+#social{
+   display: grid;
+   grid-gap: 70px;
+   margin: 0 48px 64px 0;
+   position: fixed;
+   @include pos($isTop: false, $isLeft: false);
+
+   @include dim($w: 44px);
+
+   z-index: 10;
+   
+   list-style: none;
+
+   > li{
+      $brancoOpaco: rgba(255, 255, 255, 0.3);
+
+      position: relative;
+
+      aspect-ratio: 1 / 1;
+      border-radius: 50%;
+
+      background-color: $brancoOpaco;
+      box-shadow: $brancoOpaco 0 0 30px;
+      
+      transition: background-color 200ms, box-shadow 500ms, scale 500ms;
+
+      &:hover{
+         cursor: pointer;
+         > a > svg{ fill: black; opacity: 1; }
+
+         background-color: white;
+         box-shadow: white 0 0 30px;
+         scale: 1.2;
+      }
+
+      > a > svg{
+         fill: black;
+         position: absolute;
+         @include dim($w: 100%, $h: 100%);
+
+         box-sizing: border-box;
+         padding: 10px;
+
+         transition: fill 200ms;
+
+         opacity: 0.5;
+      }
+   }
+}

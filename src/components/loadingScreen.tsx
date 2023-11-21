@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo } from "react"
+import { useState, useEffect, useMemo, useRef } from "react"
 
 import Viewport from "./viewport"
 import DynamicText from "./dynamicText/dynamicText"
@@ -31,39 +31,57 @@ export default function LoadingScreen(){
         x: px,
         y: janela.height * 0.5
     });
+
     //multiplicador associado à posição (1: para a direita; -1: para a esquerda)
     const [multi, setMulti] = useState(1);
+
+
     
-    // a posição do ponto virtual sofre constantemente alteração (1ms a 1ms)
+
+    ////////////
+    ////////////
+    //animação para fazer o efeito do rato (ponto virtual)
+    //para evitar chamar sempre um interval
+   
+    let refAnimation = useRef<any>()
+    const animation = (time) => {
+        //se o ponto virtual for contra um dos limites virtuais, ele inverte a direção
+        if(
+            px >= limites.x.max && multi === 1
+            ||
+            px <= limites.x.min && multi === -1
+
+        ) setMulti(multi * (-1))
+
+
+        //a posição do ponto virtual sofre constantemente alteração
+        setPX(px + 20 * multi);
+
+        //o object fica com o px anterior pq o px só será mudado na proxima iteração
+        setObject({
+            x: px,
+            y: 0
+        });
+        refAnimation.current = requestAnimationFrame(animation)
+    }
+    
     useEffect(
         () => {
-            const interval = setInterval(
-                () => {
-                    if(
-                        px >= limites.x.max && multi === 1
-                        ||
-                        px <= limites.x.min && multi === -1
-
-                    ) setMulti(multi * (-1))
-
-
-                    setPX(px + 20 * multi);
-                    //o object fica com o px anterior pq o px só será mudado na proxima iteração
-                    setObject({
-                        x: px,
-                        y: 0
-                    });
-                }, 1
-            )
-
-            
-
-            return () => { clearInterval(interval) }
+            refAnimation.current = requestAnimationFrame(animation)
+            return () => { cancelAnimationFrame(refAnimation.current) }
         }, [px]
     );
 
+
+
+
+
+
+
+
+
     ////////////////////////////////////////////////////////////
-    /////////////////////// VERIFICAÇÃO DE UM LOCATION STATE (submissão de dados)
+    /////////////////////// VERIFICAÇÃO DE UM LOCATION STATE (submissão de dados) e a navegação para a próxima pagina
     ////////////////////////////////////////////////////////////
 
     const navigate = useNavigate()

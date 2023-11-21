@@ -29,9 +29,12 @@
   border: 0;
 }
 
-@mixin pos($t: 0, $l: 0){
-  top: $t;
-  left: $l;
+@mixin pos($t: 0, $l: 0, $isTop: true, $isLeft: true){
+  @if($isTop){ top: $t; }
+  @else{ bottom: $t; }
+
+  @if($isLeft){ left: $t; }
+  @else{ right: $t; }
 }
 
 @mixin dim($w: auto, $h: auto){
@@ -41,7 +44,7 @@
 
 @mixin centrado(){
   position: absolute;
-  @include pos(50%, 50%);
+  @include pos($t: 50%, $l: 50%);
   transform: translate(-50%, -50%);
 }
 
@@ -64,6 +67,7 @@ $tamanhoHeadings: 128pt, 74pt, 36pt, 20pt, 14pt, 8pt;
 html, body{
   @include notAround();
   overflow: hidden;
+  @include dim(100dvw, 100dvh);
 }
 
 h1, h2{
@@ -89,8 +93,7 @@ body{
 //////////// classes
 
 .viewport{
-  width: 100dvw;
-  height: 100dvh;
+  @include dim(100dvw, 100dvh);
   overflow: hidden;
 
   &:not(#LOADINGSCREEN){
@@ -100,8 +103,6 @@ body{
     transition: 150ms top ease-in-out, 150ms left ease-in-out, 600ms opacity ease-in-out;
 
     &.horizontal{
-      //@include pos(0, 100%);
-
       &.onLeft{
         left: -100%;
       }
@@ -109,13 +110,11 @@ body{
       &.viewing{ left: 0; }
 
       &:not(.viewing, .onLeft){
-        @include pos(0, 100%);
+        @include pos($l: 100%);
       }
     }
 
     &.vertical{
-      //@include pos(100%, 0);
-
       &.onTop{
         top: -100%;
       }
@@ -123,7 +122,7 @@ body{
       &.viewing{ top: 0; }
 
       &:not(.viewing, .onTop){
-        @include pos(100%, 0);
+        @include pos($t: 100%);
       }
     }
 

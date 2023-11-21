@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { To } from "react-router-dom";
+import { Position } from "./interfaces";
 
 export function sendStateToLoading(stateToRoute : any, route : To, from : To){
     return {
@@ -44,4 +45,8 @@ export function mapear(
 
 export function getPosition(x: number, y: number){
     return { x: x, y: y }
+}
+
+export function distancia(pos1 : Position, pos2 : Position){
+    return Math.sqrt(Math.pow(pos1.x - pos2.x, 2) + Math.pow(pos1.y - pos2.y, 2))
 }

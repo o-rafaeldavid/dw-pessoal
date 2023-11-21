@@ -4,10 +4,11 @@ import { WheelContext } from "../components/contexts/wheelContext";
 import { SwipeContext } from "../components/contexts/swipeContext";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useContext, useEffect, useState } from "react";
-
+import { isMobile } from "react-device-detect";
+import Social from '../components/social/social'
+import { journeySections } from "../_universal/objects";
 
 import "../styles/journey.scss"
-import { isMobile } from "react-device-detect";
 
 export default function Journey(){
     const navigate = useNavigate()
@@ -37,9 +38,10 @@ export default function Journey(){
         else if(toLeft){
             CLASS = "onLeft"
         }
+        const Seccao = journeySections[i];
         setViews.push(
             <Viewport className={CLASS} id={"p" + i} key={"tema-" + i}>
-                
+                <Seccao/>
             </Viewport>
         );
     }
@@ -61,15 +63,19 @@ export default function Journey(){
             let timeout : number
 
             if((!isMobile && isWheel)){
-                if(numeroIndex > 0 && numeroIndex < 5){
+                if(numeroIndex >= 0 && numeroIndex <= 5){
                     const numeroDiv = document.getElementById('numero')
-                    numeroDiv.classList.add('transicionar')
+                    if(
+                        (theWheelEvent.deltaY < 0 && numeroIndex > 0)
+                        ||
+                        (theWheelEvent.deltaY > 0 && numeroIndex < 5 )
+                    ) numeroDiv.classList.add('transicionar')
                     
                     timeout = setTimeout(
                         () => {
                             numeroDiv.classList.remove('transicionar')
-                            if(theWheelEvent.deltaY < 0 && numeroIndex > 0) setNI((anterior) => anterior - 1);
-                            else if(theWheelEvent.deltaY > 0 && numeroIndex < 5 ) setNI((anterior) => anterior + 1);
+                            if(theWheelEvent.deltaY < 0 && numeroIndex > 0) setNI((anterior) => anterior - 1)
+                            else if(theWheelEvent.deltaY > 0 && numeroIndex < 5 ) setNI((anterior) => anterior + 1)
                         }, 150
                     )
                 }
@@ -82,6 +88,7 @@ export default function Journey(){
     return(
         <>
             <SomethingScroll direction="horizontal"/>
+            <Social/>
             
             {setViews}
             <div id="numero">
