@@ -40,7 +40,8 @@ export default function SomethingScroll({direction} : Props){
           }
           :
           undefined
-    
+
+
           if((isMobile) || WHEEL_DESKTOP){
             const dy = (WHEEL_DESKTOP) ? theWheelEvent.deltaY : 0;
 
@@ -48,7 +49,6 @@ export default function SomethingScroll({direction} : Props){
             const nextElement = viewingElement?.nextElementSibling;
             const prevElement = viewingElement?.previousElementSibling;
     
-
             
             if(
               ( (WHEEL_DESKTOP && dy > 0) //DESKTOP: wheel para baixo (vai para cima ou para a esquerda dependendo da orientação)
@@ -76,6 +76,7 @@ export default function SomethingScroll({direction} : Props){
               )
               && prevElement !== null && prevElement.classList.contains('viewport')){
 
+              
               viewingElement?.classList.remove('viewing');
     
               theTimeout = setTimeout(

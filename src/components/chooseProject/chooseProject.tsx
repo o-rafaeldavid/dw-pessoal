@@ -1,12 +1,18 @@
 import Viewport from "../viewport"
 import ProjElement from "./projElement"
 
+import { SwipeContext } from "../contexts/swipeContext";
 import { useEffect, useContext, useRef, useState, MouseEvent, TouchEvent } from "react";
 import { WindowDimensionContext } from "../contexts/dimensionContext";
 import { isMobile } from "react-device-detect";
 import { getPosition, mapear } from "../../_universal/miscFunctions";
 
+
 import { Position } from "../../_universal/interfaces";
+import { maxSwipeTime, minSwipeLength } from "../../_universal/constants";
+
+
+
 
 import { projectsToChoose, chooseProjectThumbnail } from "../../_universal/objects";
 
@@ -43,8 +49,17 @@ export default function ChooseProject(){
         //
         // definindo os "triggers" (funções ativadas nestes eventos) em: <div className="scene" ......
 
-        const [isMouseDown, setMouseDown] = useState<boolean>(false)
-        const [isTouchStart, setTouchStart] = useState<boolean>(false)
+    const [isMouseDown, setMouseDown] = useState<boolean>(false)
+    const [isTouchStart, setTouchStart] = useState<boolean>(false)
+        /*
+            com isto, tinha-se ficado impossibilitado de voltar para trás com o swipe
+            por isso, para evitar esse stresse, vamos verificar no proprio elemento se é efetuado um swipe
+            */
+        const [preventNotSwippingTimestamp, setPNSTimestamp] = useState<number | null>(null)
+        const { setSwipe } = useContext(SwipeContext)
+
+
+
     const anteriorSceneRotation = {
         x: useState<number | null>(null),
         y: useState<number | null>(null),
@@ -89,6 +104,8 @@ export default function ChooseProject(){
             mousePosByEvent
                 .ontouchStart[1](/**/getPosition(e.targetTouches[0].clientX, e.targetTouches[0].clientY)/**/)
 
+            setPNSTimestamp(Date.now())
+
             anteriorSceneRotation.x[1]( sceneRotation.x[0] )
             anteriorSceneRotation.y[1]( sceneRotation.y[0] )
             setTouchStart(true)
@@ -106,6 +123,28 @@ export default function ChooseProject(){
             }
         },
         ontouchEnd: (e : TouchEvent) => {
+            const deltaYTouch = mousePosByEvent.ontouchMove[0].y - mousePosByEvent.ontouchStart[0].y;
+            if(
+                deltaYTouch <= minSwipeLength * 10 && deltaYTouch > 0
+                &&
+                Date.now() - preventNotSwippingTimestamp <= maxSwipeTime
+            ){
+                console.log('swipe nisto')
+                setSwipe(
+                    {
+                        horizontal: {
+                            direita: false,
+                            esquerda: false,
+                        },
+                        vertical: {
+                            cima: false,
+                            baixo: true
+                        }
+                    }
+                )
+            }
+
+
             mousePosByEvent
                 .ontouchStart[1](null)
 
@@ -177,7 +216,8 @@ export default function ChooseProject(){
             else{
                 if((windowWidth > 800 && windowHeight > 620)) setWProject(300)
                 else{
-                    setWProject(200)
+                    if(windowWidth > 450 && windowHeight > 400) setWProject(200)
+                    else setWProject(150)
                 }
             }
 
@@ -199,7 +239,6 @@ export default function ChooseProject(){
                 <br/>
                 <span>info</span>
             </div>
-
 
             <div className="scene"
                 

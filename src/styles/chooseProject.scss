@@ -1,20 +1,11 @@
-
+@import './main.scss';
 #chooseProject{
-
     > .scene{
         perspective: 1000px;
         perspective-origin: 50% 70%;
-
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        translate: -50% -50%;
-
-        width: 100%;
-        height: 100%;
+        @include centrado();
+        @include dim(100%, 100%);
         overflow: hidden;
-
-        cursor: grab;
         
         > ol{
             list-style: none;
@@ -30,6 +21,7 @@
                 width: 400px;
                 @media (max-width: 1220px ) or (max-height: 900px){ width: 300px; }
                 @media (max-width: 800px  ) or (max-height: 620px){ width: 200px; }
+                @media (max-width: 450px  ) or (max-height: 400px){ width: 150px; }
                 
                 z-index: 0;
 

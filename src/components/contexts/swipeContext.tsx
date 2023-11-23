@@ -1,24 +1,22 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { maxSwipeTime, minSwipeLength } from "../../_universal/constants";
 import { useEventListener } from "../../_universal/miscFunctions";
-
+import { Position } from "../../_universal/interfaces";
 
 interface onSwipeContextProps {
-    isSwipe: {
-        horizontal: {
-            esquerda: boolean
-            direita: boolean
-        }
-        vertical: {
-            cima: boolean
-            baixo: boolean
-        }
-    }
+    isSwipe: SwipeProps,
+    setSwipe: React.Dispatch<React.SetStateAction<SwipeProps>>
 }
 
-interface Position {
-    x: number
-    y: number
+interface SwipeProps {
+    horizontal: {
+        esquerda: boolean
+        direita: boolean
+    }
+    vertical: {
+        cima: boolean
+        baixo: boolean
+    }
 }
 
 
@@ -107,6 +105,6 @@ export default function SwipeProvider({children} : Props){
 
 
     return(
-        <SwipeContext.Provider value={{isSwipe}}>{children}</SwipeContext.Provider>
+        <SwipeContext.Provider value={{isSwipe, setSwipe}}>{children}</SwipeContext.Provider>
     )
 }
