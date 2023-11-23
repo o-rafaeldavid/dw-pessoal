@@ -1,22 +1,48 @@
 import ChooseProject from '../components/chooseProject/chooseProject'
+import Paragrafo from '../components/paragrafo/paragrafo'
+
 import SomethingScroll from '../components/somethingScroll'
 
 import Viewport from '../components/viewport'
 import DynamicText from '../components/dynamicText/dynamicText'
 import ShowText from '../components/showText/showText'
 import Social from '../components/social/social'
+
+import { WindowDimensionContext } from '../components/contexts/dimensionContext'
+import { useContext, useEffect, useState } from 'react'
+
+import { isMobile } from 'react-device-detect'
+
 import '../styles/index.scss'
 import "../styles/showText.scss"
 
+
+
+
+
+
 function Index() {
 
+  const { windowWidth } = useContext(WindowDimensionContext);
+
+  const horizontalMeuNome = <DynamicText mouse={true}>RAFAEL DAVID</DynamicText>
+  const verticalMeuNome = 
+  <>
+    <DynamicText mouse={true}>RAFAEL</DynamicText>
+    <DynamicText mouse={true}>DAVID</DynamicText>
+  </>
+
+  const [meuNome, setMeuNome] = useState(horizontalMeuNome)
 
 
-  /////////////////////////////////////////////////////////
-  /////////////////////////////////////////////////////////
-  /////////////////////////////////////////////////////////
-  
+  /* useEffect(
+    () => {
 
+      if(windowWidth <= 1000 && meuNome !== verticalMeuNome) setMeuNome(verticalMeuNome)
+      else if(windowWidth > 1000 && meuNome !== horizontalMeuNome) setMeuNome(horizontalMeuNome)
+
+    }, [windowWidth]
+  ) */
 
   return (
     <>
@@ -31,11 +57,7 @@ function Index() {
           </ShowText>
 
           <ShowText doShow={true} rotate={false} doRotate={false}>
-            <DynamicText
-              mouse={true}
-            >
-              RAFAEL DAVID
-            </DynamicText>
+            {meuNome}
           </ShowText>
 
           <ShowText doShow={true} rotate={false} doRotate={false}>
@@ -49,7 +71,7 @@ function Index() {
       {/* =========== */}
       {/* =========== */}
 
-
+      <Paragrafo/>
       <ChooseProject/>
     </>
   )

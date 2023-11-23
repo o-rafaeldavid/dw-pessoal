@@ -1,0 +1,14 @@
+@import "./main.scss";
+
+#paragrafo{
+    span{
+        color: white;
+        transition: opacity 300ms;
+        display: inline-block;
+
+        &:has(+ span.change), &.change, &.change + span{
+            text-shadow: white 0 0 30px;
+            font-weight: 600;
+        }
+    }
+}

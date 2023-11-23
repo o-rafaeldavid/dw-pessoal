@@ -52,11 +52,15 @@
 //////////// html tags
 
 $tamanhoHeadings: 128pt, 74pt, 36pt, 20pt, 14pt, 8pt;
-@for $i from 1 to 7{
+
+$less_mil: 55pt, 45pt, 40pt, 24pt, 10pt, 6pt;
+@for $i from 1 to (list.length($tamanhoHeadings) + 1){
   h#{$i}{
     @include notAround();
-    font-size: list.nth($tamanhoHeadings, $i);
     cursor: default;
+
+    font-size: list.nth($tamanhoHeadings, $i);
+    @media (max-width: 1000px){ font-size: list.nth($less_mil, $i) !important; }
   }
 }
 
@@ -70,10 +74,26 @@ html, body{
   @include dim(100dvw, 100dvh);
 }
 
+h1{
+  $mediasH1: 1870px, 1700px, 1550px, 1440px, 1350px, 1220px, 1100px;
+  $tamanhosMediaH1: 120pt, 110pt, 100pt, 95pt, 88pt, 80pt, 70pt;
+
+  @for $i from 1 to (list.length($tamanhosMediaH1) + 1){
+    @media (max-width: list.nth($mediasH1, $i)){
+      font-size: list.nth($tamanhosMediaH1, $i);
+    }
+  }
+}
+
 h1, h2{
   @include SyneFamily();
   text-wrap: nowrap;
   white-space: nowrap;
+}
+
+h2{
+  text-align: center;
+  margin: 24px auto 0;
 }
 
 h4{
@@ -83,6 +103,12 @@ h4{
 h5{
   font-family: "Roboto Mono", monospace;
   font-weight: 500;
+}
+
+p{
+  font-size: 24pt;
+  line-height: 1.2;
+  font-weight: 300;
 }
 
 body{

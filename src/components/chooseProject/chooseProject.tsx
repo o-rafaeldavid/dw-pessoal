@@ -1,7 +1,7 @@
 import Viewport from "../viewport"
 import ProjElement from "./projElement"
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, MouseEvent, TouchEvent } from "react";
 import { isMobile } from "react-device-detect";
 import { getPosition, mapear } from "../../_universal/miscFunctions";
 
@@ -38,14 +38,15 @@ export default function ChooseProject(){
         onmouseMove: useState<Position>(getPosition(0, 0)),
 
         // eventos da posição do dedo
-        ontouchStart: useState<Position>(getPosition(0, 0)),
+        ontouchStart: useState<Position | null>(null),
         ontouchMove: useState<Position>(getPosition(0, 0))
     }
 
         //
         // definindo os "triggers" (funções ativadas nestes eventos) em: <div className="scene" ......
 
-    const [isMouseDown, setMouseDown] = useState<boolean>(false)
+        const [isMouseDown, setMouseDown] = useState<boolean>(false)
+        const [isTouchStart, setTouchStart] = useState<boolean>(false)
     const anteriorSceneRotation = {
         x: useState<number | null>(null),
         y: useState<number | null>(null),
@@ -53,7 +54,8 @@ export default function ChooseProject(){
     }
 
     const triggers = {
-        onmouseDown: (e : React.MouseEvent) => {
+        // desktop
+        onmouseDown: (e : MouseEvent) => {
             mousePosByEvent
                 .onmouseDown[1](/**/getPosition(e.clientX, e.clientY)/**/)
 
@@ -61,10 +63,10 @@ export default function ChooseProject(){
             anteriorSceneRotation.y[1]( sceneRotation.y[0] )
             setMouseDown(true)
         },
-        onmouseMove: (e: React.MouseEvent) => {
+        onmouseMove: (e: MouseEvent) => {
             if(isMouseDown && mousePosByEvent.onmouseDown[0] !== null){
                 mousePosByEvent
-                .onmouseMove[1](/**/getPosition(e.clientX, e.clientY)/**/)
+                    .onmouseMove[1](/**/getPosition(e.clientX, e.clientY)/**/)
 
                 const deltaX = mousePosByEvent.onmouseDown[0].x - e.clientX
                 const deltaY = mousePosByEvent.onmouseDown[0].y - e.clientY
@@ -73,15 +75,50 @@ export default function ChooseProject(){
                 if(anteriorSceneRotation.y[0] !== null) sceneRotation.y[1]( anteriorSceneRotation.y[0] - 0.1*deltaX)
             }
         },
-        onmouseUp: (e : React.MouseEvent) => {
+        onmouseUp: (e : MouseEvent) => {
             mousePosByEvent
                 .onmouseDown[1](null)
 
             anteriorSceneRotation.x[1](null)
             anteriorSceneRotation.y[1](null)
             setMouseDown(false)
+        },
+
+
+
+        // mobile
+        ontouchStart: (e: TouchEvent) => {
+            mousePosByEvent
+                .ontouchStart[1](/**/getPosition(e.targetTouches[0].clientX, e.targetTouches[0].clientY)/**/)
+
+            anteriorSceneRotation.x[1]( sceneRotation.x[0] )
+            anteriorSceneRotation.y[1]( sceneRotation.y[0] )
+            setTouchStart(true)
+        },
+        ontouchMove: (e: TouchEvent) => {
+            if(isTouchStart && mousePosByEvent.ontouchStart[0] !== null){
+                mousePosByEvent
+                    .ontouchMove[1](/**/getPosition(e.targetTouches[0].clientX, e.targetTouches[0].clientY)/**/)
+
+                const deltaX = mousePosByEvent.ontouchStart[0].x - e.targetTouches[0].clientX
+                const deltaY = mousePosByEvent.ontouchStart[0].y - e.targetTouches[0].clientY
+
+                if(anteriorSceneRotation.x[0] !== null) sceneRotation.x[1]( anteriorSceneRotation.x[0] - 0.1*deltaY)
+                if(anteriorSceneRotation.y[0] !== null) sceneRotation.y[1]( anteriorSceneRotation.y[0] - 0.1*deltaX)
+            }
+        },
+        ontouchEnd: (e : TouchEvent) => {
+            mousePosByEvent
+                .ontouchStart[1](null)
+
+            anteriorSceneRotation.x[1](null)
+            anteriorSceneRotation.y[1](null)
+            setTouchStart(false)
         }
     }
+
+
+
 
             //
             // para rodar sem ter de dar drag
@@ -139,7 +176,7 @@ export default function ChooseProject(){
                 =========== */}
             <h2>CONHECE O PROCESSO</h2>
 
-            
+
             <div className="sceneInfo">
                 <strong>teste</strong>
                 <br/>
@@ -152,6 +189,10 @@ export default function ChooseProject(){
                 onMouseDown={ (e) => {triggers.onmouseDown(e)} }
                 onMouseMove={ (e) => {triggers.onmouseMove(e)} }
                 onMouseUp={ (e) => {triggers.onmouseUp(e)} }
+
+                onTouchStart={ (e) => {triggers.ontouchStart(e)} }
+                onTouchMove={ (e) => {triggers.ontouchMove(e)} }
+                onTouchEnd={ (e) => {triggers.ontouchEnd(e)} }
             >
                 
                 <ol

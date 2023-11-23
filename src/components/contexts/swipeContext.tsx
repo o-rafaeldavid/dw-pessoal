@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
-import { minSwipeLength } from "../../_universal/constants";
+import { maxSwipeTime, minSwipeLength } from "../../_universal/constants";
+import { useEventListener } from "../../_universal/miscFunctions";
 
 
 interface onSwipeContextProps {
@@ -49,6 +50,10 @@ export default function SwipeProvider({children} : Props){
     const [triggerStart, setTriggerStart] = useState<Position>(setPosition(0, 0));
     const [triggerMoving, setTriggerMoving] = useState<Position>(setPosition(0, 0));
     const [triggerEnd, setTriggerEnd] = useState<boolean>(false);
+    
+    // state para ajudar na identificação de um swipe (a diferença entre um swipe e somente um touch 'drag')
+    // um swipe é quase instantâneo
+    const [inicialDate, setInitialDate] = useState<number>(Date.now())
 
 
 
@@ -59,6 +64,8 @@ export default function SwipeProvider({children} : Props){
         setTriggerEnd(false)
         setTriggerMoving(initialPos)
         setTriggerStart(initialPos)
+
+        setInitialDate(Date.now())
     }
     const moving = (e : TouchEvent) => {
         const movingPosition = setPosition(e.targetTouches[0].clientX, e.targetTouches[0].clientY)
@@ -66,33 +73,23 @@ export default function SwipeProvider({children} : Props){
     }
     const end = (e : TouchEvent) => { setTriggerEnd(true) }
 
-
-
-
-
-    useEffect(
-        () => {
-            body.addEventListener('touchstart', (e) => { start(e) })
-            body.addEventListener('touchmove', (e) => { moving(e) })
-            body.addEventListener('touchend', (e) => { end(e) })
-            return () => {
-                body.removeEventListener('touchstart', (e) => { start(e) })
-                body.removeEventListener('touchmove', (e) => { moving(e) })
-                body.removeEventListener('touchend', (e) => { end(e) })
-            }
-        }, []
-    );
+    useEventListener(body, 'touchstart', (e : TouchEvent) => { start(e) })
+    useEventListener(body, 'touchmove', (e : TouchEvent) => { moving(e) })
+    useEventListener(body, 'touchend', (e : TouchEvent) => { end(e) })
 
     useEffect(
         () => {
             let timeout : number
-            if(triggerEnd){
+            // data do final do touch para verificar se de facto é um swipe
+            const finDate = Date.now()
+
+            if(triggerEnd && finDate - inicialDate <= maxSwipeTime){
                 const delta = {
                     x: triggerMoving.x - triggerStart.x,
                     y: triggerMoving.y - triggerStart.y
                 }
 
-                console.log(delta);
+
 
                 setSwipe(
                     swipeConstructor(

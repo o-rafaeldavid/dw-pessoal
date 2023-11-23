@@ -2,7 +2,7 @@ import React from "react"
 import "../../styles/showText.scss"
 
 interface Props {
-    children: String | JSX.Element
+    children: String | JSX.Element | JSX.Element[]
     doShow: boolean
     rotate: boolean
     doRotate: boolean

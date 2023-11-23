@@ -1,4 +1,4 @@
-import { useEffect, useContext, useRef } from "react";
+import { useEffect, useContext, useRef, useState } from "react";
 import { WheelContext } from '../components/contexts/wheelContext'
 import { SwipeContext } from "./contexts/swipeContext";
 import { isMobile } from "react-device-detect";
@@ -25,6 +25,21 @@ export default function SomethingScroll({direction} : Props){
         () => {
           let theTimeout : number | undefined;
           const WHEEL_DESKTOP = (!isMobile && isWheel)
+          const ISSWIPE_DIRECTION = 
+          (isMobile)
+          ?
+          {
+            vertical: {
+              cima: isSwipe.vertical.cima && direction === "vertical",
+              baixo: isSwipe.vertical.baixo && direction === "vertical"
+            },
+            horizontal: {
+              direita: isSwipe.horizontal.direita && direction === "horizontal",
+              esquerda: isSwipe.horizontal.esquerda && direction === "horizontal"
+            },
+          }
+          :
+          undefined
     
           if((isMobile) || WHEEL_DESKTOP){
             const dy = (WHEEL_DESKTOP) ? theWheelEvent.deltaY : 0;
@@ -38,16 +53,12 @@ export default function SomethingScroll({direction} : Props){
             if(
               ( (WHEEL_DESKTOP && dy > 0) //DESKTOP: wheel para baixo (vai para cima ou para a esquerda dependendo da orientação)
                 ||
-                isMobile && (isSwipe.vertical.cima || isSwipe.horizontal.esquerda) //MOBILE: Swipe para cima/esquerda (vai para o proximo)
+                isMobile && (ISSWIPE_DIRECTION.vertical.cima || ISSWIPE_DIRECTION.horizontal.esquerda) //MOBILE: Swipe para cima/esquerda (vai para o proximo)
               )
               && nextElement !== null && nextElement.classList.contains('viewport')){
 
               viewingElement?.classList.remove('viewing');
-              if( WHEEL_DESKTOP ||
-                  isMobile &&
-                    ( (isSwipe.vertical.cima && direction === "vertical")
-                      ||
-                      (isSwipe.horizontal.esquerda && direction === "horizontal") ) ) viewingElement?.classList.add(classes.anterior);
+              viewingElement?.classList.add(classes.anterior);
     
               theTimeout = setTimeout(
                 () => {
@@ -55,10 +66,13 @@ export default function SomethingScroll({direction} : Props){
                 }, 150
               );
             }
+                              /////////////////////////////////////////////////////////////////////
+                              /////////////////////// ELSE IF :)
+                              /////////////////////////////////////////////////////////////////////
             else if(
               ( (WHEEL_DESKTOP && dy < 0) //DESKTOP: wheel para cima (vai para baixo ou para a direita dependendo da orientação)
                 ||
-                isMobile && (isSwipe.vertical.baixo || isSwipe.horizontal.direita) //MOBILE: Swipe para baixo/direita (volta para o anterior)
+                isMobile && (ISSWIPE_DIRECTION.vertical.baixo || ISSWIPE_DIRECTION.horizontal.direita) //MOBILE: Swipe para baixo/direita (volta para o anterior)
               )
               && prevElement !== null && prevElement.classList.contains('viewport')){
 
@@ -66,16 +80,6 @@ export default function SomethingScroll({direction} : Props){
     
               theTimeout = setTimeout(
                 () => {
-                  if( WHEEL_DESKTOP ||
-                      isMobile &&
-                      ( (isSwipe.vertical.baixo && direction === "vertical")
-                        ||
-                        (isSwipe.horizontal.direita && direction === "horizontal") ) ){
-
-                          console.log(classes.anterior)
-                    prevElement?.classList.remove(classes.anterior)
-                    prevElement?.classList.add('viewing')
-                  }
                   prevElement?.classList.remove(classes.anterior)
                   prevElement?.classList.add('viewing')
                 }, 150

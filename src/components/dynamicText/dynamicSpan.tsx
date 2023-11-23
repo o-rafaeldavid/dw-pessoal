@@ -1,5 +1,7 @@
 import React, { useContext, useEffect, useState, useRef } from "react"
 import { MousePosContext } from "../contexts/mouseContext"
+import { isMobile } from "react-device-detect"
+
 
 interface NOTMouseObject {
     x: number | undefined
