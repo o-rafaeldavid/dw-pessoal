@@ -1,5 +1,6 @@
 import DynamicSpan from './dynamicSpan';
 import '../../styles/dynamicText.scss'
+import { isMobile, isTablet } from 'react-device-detect';
 
 interface NOTMouseObject {
     x: number | undefined
@@ -14,7 +15,6 @@ interface Props {
 
 
 export default function DynamicText({children, mouse, notMouseObject} : Props){
-
     const texto = children.split('');
 
     let spanMapping : JSX.Element[] = [];
@@ -41,10 +41,10 @@ export default function DynamicText({children, mouse, notMouseObject} : Props){
     return(
         <>
         <div className="dynamicText">
-            <h1>
+            <h1 className={(isMobile || isTablet) ? "mobile" : ""}>
                 {spanMapping}
             </h1>
-            <h1 className="blur">
+            <h1 className={"blur" + ((isMobile || isTablet) ? " mobile" : "")}>
                 {spanMapping}
             </h1>
         </div>

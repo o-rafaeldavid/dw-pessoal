@@ -28,6 +28,9 @@
             > li.projElement{
                 aspect-ratio: 16/9;
                 width: 400px;
+                @media (max-width: 1220px ) or (max-height: 900px){ width: 300px; }
+                @media (max-width: 800px  ) or (max-height: 620px){ width: 200px; }
+                
                 z-index: 0;
 
                 position: absolute;

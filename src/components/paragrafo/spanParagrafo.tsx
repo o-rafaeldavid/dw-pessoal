@@ -5,7 +5,7 @@ import { isMobile } from "react-device-detect"
 
 
 interface Props{
-    children: string
+    children    : string
 }
 
 export default function SpanParagrafo({children} : Props){
@@ -59,7 +59,10 @@ export default function SpanParagrafo({children} : Props){
         }, [startTimeout]
     )
 
+
+    const char = (children !== ' ') ? children : '`';
+
     return(
-        <span ref={spanP}>{children}</span>
+        <span ref={spanP} className={(char === '`') ? 'space' : ''}>{char}</span>
     )
 }

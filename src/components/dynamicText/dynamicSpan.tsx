@@ -1,6 +1,8 @@
 import React, { useContext, useEffect, useState, useRef } from "react"
 import { MousePosContext } from "../contexts/mouseContext"
 import { isMobile } from "react-device-detect"
+import { WindowDimensionContext } from "../contexts/dimensionContext"
+import { mapear } from "../../_universal/miscFunctions"
 
 
 interface NOTMouseObject {
@@ -18,15 +20,11 @@ interface Props {
 export default function DynamicSpan({children, className, mouse, notMouseObject} : Props){
     const inicializar = useRef<boolean>(true);
     const dynamicSpan = useRef<HTMLSpanElement>(null);
-    const {mousePagePos, setMousePagePos} = useContext(MousePosContext)
+    const {mousePagePos} = useContext(MousePosContext)
+    const {windowWidth, windowHeight} = useContext(WindowDimensionContext)
     //const [variableWeight, setVariableWeight] = useState(0)
     //font-variation-settings 
 
-
-    let refAnimation = useRef<any>()
-    const animation = (time) => {
-
-    }
     useEffect(
         () => {
             if(inicializar.current){
@@ -45,21 +43,21 @@ export default function DynamicSpan({children, className, mouse, notMouseObject}
 
                 spanDinamico.style.setProperty(
                     "font-variation-settings", 
-                    '"wght" ' + mapping(dist, 0, 5*spanDinamico.offsetHeight, 800, 700)
+                    '"wght" ' + mapear(dist, 0, 5 * spanDinamico.offsetHeight, 800, 700)
                 )
                 spanDinamico.style.setProperty(
                     "scale",
-                    "" + mapping(dist, 0, 3*spanDinamico.offsetHeight, 1.2, 1)
+                    "" + mapear(dist, 0, 5 * spanDinamico.offsetHeight , 1.2, 1)
                 )
                 spanDinamico.style.setProperty(
                     "margin",
-                    "0 " + mapping(dist, 0, 2*spanDinamico.offsetHeight, 10, 0) + "px"
+                    "0 " + mapear(dist, 0, ((windowHeight / windowWidth < 1) ? 2 : 4) * spanDinamico.offsetHeight, mapear(windowWidth, 1920, 0, 10, 1), 0) + "px"
                 )
 
                 if(spanDinamico.parentElement?.classList.contains('blur')){
                     spanDinamico.style.setProperty(
                         "filter",
-                        "blur(" + mapping(dist, 0, 7*spanDinamico.offsetHeight, 30, 0) + "px)"
+                        "blur(" + mapear(dist, 0, 7 * spanDinamico.offsetHeight, 30, 0) + "px)"
                     )
                 }
             }
@@ -74,14 +72,4 @@ export default function DynamicSpan({children, className, mouse, notMouseObject}
             {children}
         </span>
     );
-}
-
-function mapping(
-    input: number,
-    inputMin: number,
-    inputMax: number,
-    outputMin: number,
-    outputMax: number
-){
-    return outputMin + ((outputMax - outputMin) / (inputMax - inputMin)) * (input - inputMin)
 }

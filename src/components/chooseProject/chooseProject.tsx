@@ -1,7 +1,8 @@
 import Viewport from "../viewport"
 import ProjElement from "./projElement"
 
-import { useEffect, useRef, useState, MouseEvent, TouchEvent } from "react";
+import { useEffect, useContext, useRef, useState, MouseEvent, TouchEvent } from "react";
+import { WindowDimensionContext } from "../contexts/dimensionContext";
 import { isMobile } from "react-device-detect";
 import { getPosition, mapear } from "../../_universal/miscFunctions";
 
@@ -10,9 +11,6 @@ import { Position } from "../../_universal/interfaces";
 import { projectsToChoose, chooseProjectThumbnail } from "../../_universal/objects";
 
 import "../../styles/chooseProject.scss"
-
-
-const wProject = 400;
 
 export default function ChooseProject(){
     //////////////////////////////////////////////
@@ -140,8 +138,10 @@ export default function ChooseProject(){
     //////////////////////////////////////////////
     //////// ELEMENTOS A SEREM ESCOLHIDOS
     //////////////////////////////////////////////
-
-    let listaProjElement : any = [];
+    const [wProject, setWProject] = useState(400)
+    const { windowWidth, windowHeight } = useContext(WindowDimensionContext)
+    
+    let listaProjElement = [];
     const n = 6;
     for(let i = 0; i < n; i++){
         const angle = i * Math.PI * 2 / n;
@@ -167,6 +167,23 @@ export default function ChooseProject(){
         );
     }
 
+     
+
+
+
+    useEffect(
+        () => {
+            if((windowWidth > 1220 && windowHeight > 900)) setWProject(400)
+            else{
+                if((windowWidth > 800 && windowHeight > 620)) setWProject(300)
+                else{
+                    setWProject(200)
+                }
+            }
+
+        }, [windowWidth, windowHeight]
+    )
+
     //////////////////////////////////////////////
     //////////////////////////////////////////////
     //////////////////////////////////////////////
@@ -174,7 +191,7 @@ export default function ChooseProject(){
         <Viewport id="chooseProject">
             {/* O MEU TRAJETO QUANTO A DM
                 =========== */}
-            <h2>CONHECE O PROCESSO</h2>
+            <h2>O PROCESSO</h2>
 
 
             <div className="sceneInfo">

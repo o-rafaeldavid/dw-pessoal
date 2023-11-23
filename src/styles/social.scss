@@ -13,6 +13,8 @@
    
    list-style: none;
 
+
+
    > li{
       $brancoOpaco: rgba(255, 255, 255, 0.3);
 
@@ -25,6 +27,8 @@
       box-shadow: $brancoOpaco 0 0 30px;
       
       transition: background-color 200ms, box-shadow 500ms, scale 500ms;
+
+
 
       &:hover{
          cursor: pointer;
@@ -47,5 +51,23 @@
 
          opacity: 0.5;
       }
+   }
+
+
+   
+   @media (max-width: 1300px){
+      grid-gap: 50px;
+      margin: 0 32px 48px 0;
+      @include dim($w: 38px);
+      > li > a > svg{ padding: 8px; }
+   }
+
+   @media (max-width: 700px){ grid-gap: 30px; }
+
+   @media (max-width: 450px){
+      grid-gap: 24px;
+      margin: 0 20px 36px 0;
+      @include dim($w: 32px);
+      > li > a > svg{ padding: 6px; }
    }
 }

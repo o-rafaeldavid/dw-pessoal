@@ -53,14 +53,12 @@
 
 $tamanhoHeadings: 128pt, 74pt, 36pt, 20pt, 14pt, 8pt;
 
-$less_mil: 55pt, 45pt, 40pt, 24pt, 10pt, 6pt;
 @for $i from 1 to (list.length($tamanhoHeadings) + 1){
   h#{$i}{
     @include notAround();
     cursor: default;
 
     font-size: list.nth($tamanhoHeadings, $i);
-    @media (max-width: 1000px){ font-size: list.nth($less_mil, $i) !important; }
   }
 }
 
@@ -75,12 +73,28 @@ html, body{
 }
 
 h1{
-  $mediasH1: 1870px, 1700px, 1550px, 1440px, 1350px, 1220px, 1100px;
-  $tamanhosMediaH1: 120pt, 110pt, 100pt, 95pt, 88pt, 80pt, 70pt;
+  $mediasH1:  1870px, 1700px, 1550px, 1440px,
+              1350px, 1220px, 1100px, 1000px,
+              900px, 800px, 700px, 450px,
+              400px, 320px;
+
+  $tamanhosMediaH1:   120pt, 110pt, 100pt, 95pt,
+                      88pt, 80pt, 70pt, 65pt,
+                      60pt, 48pt, 57pt, 45pt,
+                      38pt, 34pt;
+  
+  $tamanhosMobilePOS7:  /////, /////, /////, /////,
+                        /*////, /////, ///*/ 100pt,
+                        95pt, 88pt, 57pt, 45pt,
+                        38pt, 34pt;
 
   @for $i from 1 to (list.length($tamanhosMediaH1) + 1){
     @media (max-width: list.nth($mediasH1, $i)){
       font-size: list.nth($tamanhosMediaH1, $i);
+
+      @if ($i > 7){
+        &.mobile{ font-size: list.nth($tamanhosMobilePOS7, $i - 7); }
+      }
     }
   }
 }
@@ -94,21 +108,31 @@ h1, h2{
 h2{
   text-align: center;
   margin: 24px auto 0;
+  @media (max-width: 1500px){ font-size: 65pt; }
+  @media (max-width: 1220px){ font-size: 60pt; }
+  @media (max-width: 1000px){ font-size: 55pt; }
+  @media (max-width: 600px){ font-size: 40pt; }
 }
 
 h4{
   font-weight: 500;
+  @media (max-width: 1300px){ font-size: 16pt; }
+  @media (max-width: 700px){ font-size: 12pt; }
 }
 
 h5{
   font-family: "Roboto Mono", monospace;
   font-weight: 500;
+  @media (max-width: 1300px){ font-size: 12pt; }
+  @media (max-width: 700px){ font-size: 10pt; }
 }
 
 p{
   font-size: 24pt;
   line-height: 1.2;
   font-weight: 300;
+  @media (max-width: 1440px){ font-size: 18pt; }
+  @media (max-width: 900px){ font-size: 14pt; }
 }
 
 body{

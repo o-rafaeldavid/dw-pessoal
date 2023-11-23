@@ -1,36 +1,34 @@
-import { useState, useEffect, useMemo, useRef } from "react"
+import { useState, useEffect, useMemo, useRef, useContext } from "react"
+import { useLocation, useNavigate } from "react-router-dom"
 
 import Viewport from "./viewport"
 import DynamicText from "./dynamicText/dynamicText"
+import { getPosition } from "../_universal/miscFunctions"
+
+import { WindowDimensionContext } from "./contexts/dimensionContext"
 
 import "../styles/loadingScreen.scss"
-import { useLocation, useNavigate } from "react-router-dom"
-
 
 export default function LoadingScreen(){
     ////////////////////////////////////////////////////////////
     /////////////////////// ONDULAÇÃO
     ////////////////////////////////////////////////////////////
 
-    // tamanho total da janela (para ser mais simples)
-    const janela ={
-        width: window.innerWidth,
-        height: window.innerHeight
-    }
+    const {windowWidth, windowHeight} = useContext(WindowDimensionContext)
     // "limites" associados a onde o nosso ponto virtual irá se mover (simulação de um rato)
     const limites = {
         x: {
-            min: janela.width * 0.1,
-            max: janela.width * 0.9
+            min: windowWidth * 0.1,
+            max: windowWidth * 0.9
         }
     }
 
     // posição do nosso ponto virtual
     const [px, setPX] = useState(Math.random() * (limites.x.max - limites.x.min) + limites.x.min);
-    const [object, setObject] = useState({
-        x: px,
-        y: janela.height * 0.5
-    });
+    const [object, setObject] = useState(getPosition(
+        px,
+        windowHeight * 0.5
+    ));
 
     //multiplicador associado à posição (1: para a direita; -1: para a esquerda)
     const [multi, setMulti] = useState(1);
@@ -58,10 +56,10 @@ export default function LoadingScreen(){
         setPX(px + 20 * multi);
 
         //o object fica com o px anterior pq o px só será mudado na proxima iteração
-        setObject({
-            x: px,
-            y: 0
-        });
+        setObject(getPosition(
+            px,
+            windowHeight * 0.5
+        ));
         refAnimation.current = requestAnimationFrame(animation)
     }
     

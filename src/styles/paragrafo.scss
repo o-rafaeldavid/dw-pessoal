@@ -1,14 +1,27 @@
 @import "./main.scss";
 
 #paragrafo{
-    span{
-        color: white;
-        transition: opacity 300ms;
-        display: inline-block;
+    > p{
+        @include dim(70%, auto);
+        @media (max-width: 700px){ @include dim(80%, auto); }
+        @include centrado();
 
-        &:has(+ span.change), &.change, &.change + span{
-            text-shadow: white 0 0 30px;
-            font-weight: 600;
+        > span{
+            color: white;
+            display: inline-block;
+    
+            &:has(+ span.change), &.change, &.change + span{
+                text-shadow: white 0 0 30px;
+                font-weight: 600;
+            }
+    
+            &.space{
+                opacity: 0;
+            }
+
+            &:first-of-type{
+                text-indent: 2em;
+            }
         }
     }
 }
