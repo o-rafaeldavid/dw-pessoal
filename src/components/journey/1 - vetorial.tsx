@@ -1,7 +1,11 @@
 export default function VetorialSection(){
     return(
         <>
-            <h1>aaa</h1>
+            <div>
+
+            </div>
+            
+            <h3>DESIGN VETORIAL</h3>
         </>
     )
 }

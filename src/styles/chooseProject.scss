@@ -6,6 +6,8 @@
         @include centrado();
         @include dim(100%, 100%);
         overflow: hidden;
+
+        cursor: hand;
         
         > ol{
             list-style: none;

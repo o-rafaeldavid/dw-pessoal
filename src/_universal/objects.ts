@@ -2,6 +2,8 @@ import rawls_0 from "../assets/img/topicos/0 - powerpoint/rawls_0.png"
 import vetorial_thumb from "../assets/img/topicos/1 - design vetorial/thumbnail.png"
 import viagem_a_marte_thumb from "../assets/img/topicos/2 - motion graphics/motion_thumb.png"
 
+import betpiston_ocap from "../assets/img/topicos/4 - web/thumbnail.jpg"
+
 import PowerpointSection from "../components/journey/0 - powerpoint"
 import VetorialSection from "../components/journey/1 - vetorial"
 import MotionGraphicsSection from "../components/journey/2 - motiongraphics"
@@ -14,7 +16,10 @@ import AppsSection from "../components/journey/5 - apps"
 export const chooseProjectThumbnail = [
     rawls_0,
     vetorial_thumb,
-    viagem_a_marte_thumb
+    viagem_a_marte_thumb,
+    undefined,
+    betpiston_ocap,
+    undefined
 ]
 
 // nomes de cada secção da journey

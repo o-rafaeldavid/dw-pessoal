@@ -201,7 +201,7 @@ export default function ChooseProject(){
                 journeyIndex={i}
                 name={projectsToChoose[i]}
 
-                src={ (i < 3) ? chooseProjectThumbnail[i] : undefined }
+                src={ chooseProjectThumbnail[i] }
             />
         );
     }

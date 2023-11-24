@@ -9,6 +9,7 @@ import Social from '../components/social/social'
 import { journeySections } from "../_universal/objects";
 
 import "../styles/journey.scss"
+import "../styles/insideJourney.scss"
 
 export default function Journey(){
     const navigate = useNavigate()
@@ -40,7 +41,7 @@ export default function Journey(){
         }
         const Seccao = journeySections[i];
         setViews.push(
-            <Viewport className={CLASS} id={"p" + i} key={"tema-" + i}>
+            <Viewport className={"journeyViewport " + CLASS} id={"p" + i} key={"tema-" + i}>
                 <Seccao/>
             </Viewport>
         );
@@ -58,24 +59,29 @@ export default function Journey(){
     const { isWheel, theWheelEvent } = useContext(WheelContext);
     const { isSwipe } = useContext(SwipeContext)
 
+
     useEffect(
         () => {
             let timeout : number
+            
+            if((isMobile || (!isMobile && isWheel && theWheelEvent !== undefined))){
+                const firstCondition = (!isMobile) ? (!isMobile && isWheel) : isMobile;
+                const secondConditionS = {
+                    PROXIMO: (!isMobile) ? (theWheelEvent.deltaY < 0 && numeroIndex > 0) : (isSwipe.horizontal.direita && numeroIndex > 0),
+                    ANTERIOR: (!isMobile) ? (theWheelEvent.deltaY > 0 && numeroIndex < 5) : (isSwipe.horizontal.esquerda && numeroIndex < 5)
+                }
 
-            if((!isMobile && isWheel)){
+
                 if(numeroIndex >= 0 && numeroIndex <= 5){
                     const numeroDiv = document.getElementById('numero')
-                    if(
-                        (theWheelEvent.deltaY < 0 && numeroIndex > 0)
-                        ||
-                        (theWheelEvent.deltaY > 0 && numeroIndex < 5 )
-                    ) numeroDiv.classList.add('transicionar')
+                    if(firstCondition && (secondConditionS.PROXIMO || secondConditionS.ANTERIOR)) numeroDiv.classList.add('transicionar')
                     
                     timeout = setTimeout(
                         () => {
+                            console.log('TIMEOUT')
                             numeroDiv.classList.remove('transicionar')
-                            if(theWheelEvent.deltaY < 0 && numeroIndex > 0) setNI((anterior) => anterior - 1)
-                            else if(theWheelEvent.deltaY > 0 && numeroIndex < 5 ) setNI((anterior) => anterior + 1)
+                            if(secondConditionS.PROXIMO) setNI((anterior) => anterior - 1)
+                            else if(secondConditionS.ANTERIOR) setNI((anterior) => anterior + 1)
                         }, 150
                     )
                 }

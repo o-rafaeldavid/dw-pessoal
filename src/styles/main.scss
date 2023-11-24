@@ -51,7 +51,7 @@
 ////////////////////////////////////////////////
 //////////// html tags
 
-$tamanhoHeadings: 128pt, 74pt, 36pt, 20pt, 14pt, 8pt;
+$tamanhoHeadings: 128pt, 74pt, 68pt, 20pt, 14pt, 8pt;
 
 @for $i from 1 to (list.length($tamanhoHeadings) + 1){
   h#{$i}{
@@ -99,7 +99,7 @@ h1{
   }
 }
 
-h1, h2{
+h1, h2, h3{
   @include SyneFamily();
   text-wrap: nowrap;
   white-space: nowrap;
@@ -115,6 +115,10 @@ h2{
   @media (max-width: 600px){ margin-top: 48px; font-size: 40pt; }
   @media (max-width: 500px){ font-size: 30pt; }
   @media (max-width: 350px){ margin-top: 30px; font-size: 27pt; }
+}
+
+h3{
+  font-variation-settings: "wght" 750;
 }
 
 h4{
@@ -136,6 +140,10 @@ p{
   font-weight: 300;
   @media (max-width: 1440px){ font-size: 18pt; }
   @media (max-width: 900px){ font-size: 14pt; }
+
+  > em {
+    font-weight: 500;
+  }
 }
 
 body{
