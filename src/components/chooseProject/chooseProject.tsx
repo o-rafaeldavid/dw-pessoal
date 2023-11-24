@@ -236,8 +236,6 @@ export default function ChooseProject(){
 
             <div className="sceneInfo">
                 <strong>teste</strong>
-                <br/>
-                <span>info</span>
             </div>
 
             <div className="scene"

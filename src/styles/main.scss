@@ -182,7 +182,7 @@ body{
       &.viewing{ left: 0; }
 
       &:not(.viewing, .onLeft){
-        @include pos($l: 100%);
+        left: 100%;
       }
     }
 
@@ -194,7 +194,7 @@ body{
       &.viewing{ top: 0; }
 
       &:not(.viewing, .onTop){
-        @include pos($t: 100%);
+        top: 100%;
       }
     }
 
