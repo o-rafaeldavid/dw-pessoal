@@ -1,6 +1,25 @@
+import { WindowDimensionContext } from "../contexts/dimensionContext"
+import { useContext, useEffect, useState } from "react";
+
+
 import viagem_a_marte from "../../assets/img/topicos/2 - motion graphics/VIAGEM A MARTE THUMBNAIL.jpg"
 
+
 export default function MotionGraphicsSection(){
+    const { windowWidth } = useContext(WindowDimensionContext)
+    const normalMotion = <>MOTION GRAPHICS</>
+    const breakMotion = <>MOTION<br/>GRAPHICS</>
+    const [mtsGraphics, setMG] = useState(normalMotion)
+
+    useEffect(
+        () => {
+            if(windowWidth <= 550) setMG(breakMotion)
+            else if(windowWidth > 550) setMG(normalMotion)
+
+        }, [windowWidth]
+    )
+
+
     return(
         <>
             <div className="centerTextImg">
@@ -19,7 +38,7 @@ export default function MotionGraphicsSection(){
                 </div>
             </div>
             
-            <h3>MOTION GRAPHICS</h3>
+            <h3>{mtsGraphics}</h3>
         </>
     )
 }

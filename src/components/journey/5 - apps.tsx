@@ -14,7 +14,7 @@ export default function AppsSection(){
                 </div>
             </div>
             
-            <h3>APPS & EDIÇÃO DE VÍDEO</h3>
+            <h3>APPS & VÍDEO</h3>
         </>
     )
 }

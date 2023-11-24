@@ -1,4 +1,4 @@
 export const minSwipeLength = 70
 export const maxSwipeTime = 220
 
-export const paragrafo = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum felis sapien, consectetur ac facilisis non, luctus id elit. Fusce condimentum diam at elementum ultricies. Suspendisse eu dui dignissim, rhoncus massa eget, semper elit. Maecenas vulputate eleifend velit dignissim fermentum. In finibus turpis ut est rhoncus, vel venenatis eros pharetra. Morbi laoreet iaculis risus, eu auctor felis."
+export const paragrafo = "Sou o Rafael David, Licenciado pela Unviersidade de Coimbra em Design e Multimédia. Sendo cativado pelo Design Gráfico, esta área surgiu-me como uma paixão. Aqui conhecerás um resumo do meu percurso nesta área, as etapas pelas quais protagonizei e também como nos dias de hoje ela ainda tem muita relevância na minha vida e ainda terá."

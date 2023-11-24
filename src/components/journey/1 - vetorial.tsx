@@ -1,9 +1,26 @@
 import ImageSlide from "../imageSlide"
+import { useContext, useEffect, useState } from "react"
+import { WindowDimensionContext } from "../contexts/dimensionContext"
+
 
 import logo_on from "../../assets/img/topicos/1 - design vetorial/logo_on.jpg"
 import evolucao from "../../assets/img/topicos/1 - design vetorial/Evolução Da Terra.png"
 
+
 export default function VetorialSection(){
+    const { windowWidth } = useContext(WindowDimensionContext)
+    const normalDsn = <>DESIGN VETORIAL</>
+    const breakDsn = <>DESIGN<br/>VETORIAL</>
+    const [dsnVetorial, setDV] = useState(normalDsn)
+
+    useEffect(
+        () => {
+            if(windowWidth <= 550) setDV(breakDsn)
+            else if(windowWidth > 550) setDV(normalDsn)
+
+        }, [windowWidth]
+    )
+
     return(
         <>
             <div className="centerTextImg">
@@ -16,8 +33,8 @@ export default function VetorialSection(){
                         Desde a criação de icons, logos, mas sobretudo nas ilustrações.
                     </p>
                     <p>
-                        Assim, comecei a ter também interesse no rigor. A utilização de grelhas e proporções são o que
-                        me faziam dar mais valor ao que criava, o lado mais matemático da construção, o suporte do resultado final.
+                        Assim, comecei a ter também interesse no rigor. A utilização de grelhas e proporções são o lado
+                        mais matemático, o que dão suporte às criações.
                     </p>
                 </div>
                 <div className="image">
@@ -26,7 +43,7 @@ export default function VetorialSection(){
                 </div>
             </div>
             
-            <h3>DESIGN VETORIAL</h3>
+            <h3>{dsnVetorial}</h3>
         </>
     )
 }

@@ -3,10 +3,21 @@
 
 .journeyViewport{
     padding: 124px 64px 32px 64px;
+    @media (max-width: 1580px){ padding-top: 164px;}
+    @media (max-width: 1300px){ padding: 0 32px 32px 32px;}
+    @media (max-width: 450px){ padding: 0 16px 16px 16px;}
+
+    @media (max-height: 930px) and (min-width: 1300px){ padding-top: 84px;}
+    @media (max-height: 760px) and (min-width: 1300px){ padding-top: 50px;}
+    
+    
+
+
     box-sizing: border-box;
 
     display: flex;
     flex-direction: column;
+    @media (max-width: 600px ){ flex-direction: column-reverse; padding-top: 32px;}
 
     p {
         text-indent: 2em;
@@ -22,12 +33,36 @@
             position: relative;
             margin: 64px 96px 0 96px;
             gap: 40px;
+            @media (max-width: 1300px){ margin: 72px 32px 0 32px;}
+            @media (max-width: 1200px){ margin: 48px 32px 0 32px;}
+            @media (max-width: 1000px){ flex-direction: column; gap: 20px;}
+            @media (max-width: 600px ){ margin: 16px 16px 0 16px;}
+            @media (max-width: 450px ){ margin: 16px 4px 0 4px;}
 
             > * {
                 width: 50%;
             }
 
+            
+            @media (max-width: 1850px){
+                > .text { width: 55%; }
+                > .image{ width: 45%; }
+            }
+
+             
+            @media (max-width: 1000px){ 
+                > .text { width: 100%; }
+                > .image{ width: 50%; margin: 0 auto; }
+            }
+            @media (max-width: 800px){ 
+                > .image{ width: 70%; margin: 0 auto; }
+            }
+
+
+
+
             > .image{
+                position: relative;
                 > img {
                     aspect-ratio: 16 / 9;
                     width: 100%;
