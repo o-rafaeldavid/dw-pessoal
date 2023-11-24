@@ -3,6 +3,7 @@ import vetorial_thumb from "../assets/img/topicos/1 - design vetorial/thumbnail.
 import viagem_a_marte_thumb from "../assets/img/topicos/2 - motion graphics/motion_thumb.png"
 import programacao_thumb from "../assets/img/topicos/3 - programacao/thumbnail.jpg"
 import betpiston_ocap from "../assets/img/topicos/4 - web/thumbnail.jpg"
+import bideo from "../assets/img/topicos/5 - apps e video/bideo.jpg"
 
 import PowerpointSection from "../components/journey/0 - powerpoint"
 import VetorialSection from "../components/journey/1 - vetorial"
@@ -19,7 +20,7 @@ export const chooseProjectThumbnail = [
     viagem_a_marte_thumb,
     programacao_thumb,
     betpiston_ocap,
-    undefined
+    bideo
 ]
 
 // nomes de cada secção da journey
