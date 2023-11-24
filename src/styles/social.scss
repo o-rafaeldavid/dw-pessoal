@@ -51,6 +51,12 @@
 
          opacity: 0.5;
       }
+
+      @media (max-width: 900px){
+         background-color: white;
+         box-shadow: white 0 0 30px;
+         > a > svg{ opacity: 1;}
+      }
    }
 
 
