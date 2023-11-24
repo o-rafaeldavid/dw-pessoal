@@ -3,7 +3,7 @@ import { useLocation, useNavigate } from "react-router-dom"
 
 import Viewport from "./viewport"
 import DynamicText from "./dynamicText/dynamicText"
-import { getPosition } from "../_universal/miscFunctions"
+import { getPosition, mapear } from "../_universal/miscFunctions"
 
 import { WindowDimensionContext } from "./contexts/dimensionContext"
 
@@ -53,7 +53,7 @@ export default function LoadingScreen(){
 
 
         //a posição do ponto virtual sofre constantemente alteração
-        setPX(px + 20 * multi);
+        setPX(px + mapear(windowWidth, 0, 1920, 3, 25) * multi);
 
         //o object fica com o px anterior pq o px só será mudado na proxima iteração
         setObject(getPosition(
@@ -127,6 +127,7 @@ export default function LoadingScreen(){
     return(
         <Viewport id="LOADINGSCREEN">
             <DynamicText
+             className="loading"
               mouse={false}
               notMouseObject={object}
             >

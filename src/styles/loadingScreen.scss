@@ -10,6 +10,12 @@
         @include centrado();
         opacity: 0;
         animation: showLoading 2000ms forwards;
+
+        > h1{
+            @media(max-width: 700px){ font-size: 40pt !important; }
+            @media(max-width: 550px){ font-size: 30pt !important; }
+            @media(max-width: 450px){ font-size: 20pt !important; }
+        }
     }
 }
 

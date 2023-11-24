@@ -11,10 +11,11 @@ interface Props {
     children: string,
     mouse: boolean
     notMouseObject?: NOTMouseObject
+    className?: string
 }
 
 
-export default function DynamicText({children, mouse, notMouseObject} : Props){
+export default function DynamicText({children, mouse, notMouseObject, className} : Props){
     const texto = children.split('');
 
     let spanMapping : JSX.Element[] = [];
@@ -41,10 +42,10 @@ export default function DynamicText({children, mouse, notMouseObject} : Props){
     return(
         <>
         <div className="dynamicText">
-            <h1 className={(isMobile || isTablet) ? "mobile" : ""}>
+            <h1 className={((isMobile || isTablet) ? "mobile" : "" ) + ((className !== undefined) ? (" " + className) : "")}>
                 {spanMapping}
             </h1>
-            <h1 className={"blur" + ((isMobile || isTablet) ? " mobile" : "")}>
+            <h1 className={"blur" + ((isMobile || isTablet) ? " mobile" : "") + ((className !== undefined) ? (" " + className) : "")}>
                 {spanMapping}
             </h1>
         </div>

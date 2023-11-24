@@ -93,7 +93,7 @@ h1{
       font-size: list.nth($tamanhosMediaH1, $i);
 
       @if ($i > 7){
-        &.mobile{ font-size: list.nth($tamanhosMobilePOS7, $i - 7); }
+        &.mobile:not(.loading){ font-size: list.nth($tamanhosMobilePOS7, $i - 7); }
       }
     }
   }
