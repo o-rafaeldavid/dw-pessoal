@@ -2,7 +2,7 @@ export default function AppsSection(){
     return(
         <>
             <div className="centerTextImg">
-                <div className="text">
+                <div className="text" style={{width: '100%'}}>
                     <p>
                         A criação de apps é algo que vem como consequência do interesse pela web
                         e é um conhecimento que só tenho andado a desenvolver recentemente.

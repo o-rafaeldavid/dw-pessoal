@@ -4,7 +4,9 @@ import { WindowDimensionContext } from "../contexts/dimensionContext"
 
 
 import logo_on from "../../assets/img/topicos/1 - design vetorial/logo_on.jpg"
-import evolucao from "../../assets/img/topicos/1 - design vetorial/Evolução Da Terra.png"
+import evolucao from "../../assets/img/topicos/1 - design vetorial/evoTerra.jpg"
+import landscape from "../../assets/img/topicos/1 - design vetorial/landscape.jpg"
+import cavalo from "../../assets/img/topicos/1 - design vetorial/cavalo.jpg"
 
 
 export default function VetorialSection(){
@@ -38,8 +40,15 @@ export default function VetorialSection(){
                     </p>
                 </div>
                 <div className="image">
-                    <ImageSlide imagens={[logo_on, evolucao]}/>
-                    <span>Algumas criações antigas no âmbito do design vetorial</span>
+                    <ImageSlide
+                        imagens={[logo_on, evolucao, landscape, cavalo]}
+                        descricao={[
+                            "um logo criado enquanto estava a explorar a área",
+                            "infografia criada em âmbito escolar",
+                            "landscape para a minha primeira conta de testes",
+                            "exploração de guias e proporções"
+                        ]}
+                    />
                 </div>
             </div>
             

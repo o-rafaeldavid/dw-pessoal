@@ -198,6 +198,6 @@ body{
       }
     }
 
-    &.viewing{ opacity: 1; }
+    &.viewing{ opacity: 1; z-index: 1; }
   }
 }

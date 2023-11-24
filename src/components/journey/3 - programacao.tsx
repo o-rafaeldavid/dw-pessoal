@@ -1,5 +1,5 @@
 
-import programacao_thumb from "../../assets/img/topicos/3 - programacao/thumbnail.jpg"
+import bolas from "../../assets/img/topicos/3 - programacao/bolas.jpg"
 
 export default function ProgramacaoSection(){
     return(
@@ -17,8 +17,8 @@ export default function ProgramacaoSection(){
                     </p>
                 </div>
                 <div className="image">
-                    <img alt="" src={programacao_thumb}/>
-                    <span>video de "a viagem a marte" | uma trabalho do secundário </span>
+                    <img alt="" src={bolas}/>
+                    <span>esfera com estética ASCII criada como teste de um trabalho da faculdade em processing</span>
                 </div>
             </div>
             

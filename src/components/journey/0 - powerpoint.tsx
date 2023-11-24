@@ -20,8 +20,10 @@ export default function PowerpointSection(){
                     </p>
                 </div>
                 <div className="image">
-                    <ImageSlide imagens={[deuses_0, pombalina_0, rawls_1]}/>
-                    <span>Powerpoints criados à uns anos</span>
+                    <ImageSlide
+                        imagens={[deuses_0, pombalina_0, rawls_1]}
+                        descricao={['Powerpoints criados há uns anos']}
+                    />
                 </div>
             </div>
             

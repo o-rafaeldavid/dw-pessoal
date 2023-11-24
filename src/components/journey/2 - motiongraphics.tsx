@@ -3,7 +3,7 @@ import { useContext, useEffect, useState } from "react";
 
 
 import viagem_a_marte from "../../assets/img/topicos/2 - motion graphics/VIAGEM A MARTE THUMBNAIL.jpg"
-
+import video_viagem_a_marte from "../../assets/video/VIAGEM A MARTE.mp4"
 
 export default function MotionGraphicsSection(){
     const { windowWidth } = useContext(WindowDimensionContext)
@@ -33,7 +33,9 @@ export default function MotionGraphicsSection(){
                     </p>
                 </div>
                 <div className="image">
-                    <img alt="" src={viagem_a_marte}/>
+                    <video controls>
+                        <source src={video_viagem_a_marte} type="video/mp4"/>
+                    </video>
                     <span>video de "a viagem a marte" | uma trabalho do secundário </span>
                 </div>
             </div>

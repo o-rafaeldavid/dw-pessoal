@@ -1,4 +1,7 @@
+import ImageSlide from "../imageSlide"
 import ocap from "../../assets/img/topicos/4 - web/ocap.jpg"
+import betpiston from "../../assets/img/topicos/4 - web/betpiston.jpg"
+import tcd from "../../assets/img/topicos/4 - web/tcd.jpg"
 
 export default function WebSection(){
     return(
@@ -18,8 +21,14 @@ export default function WebSection(){
                     </p>
                 </div>
                 <div className="image">
-                    <img alt="" src={ocap}/>
-                    <span>OCAP | Primeiro website criado</span>
+                    <ImageSlide
+                        imagens={[ocap, betpiston, tcd]}
+                        descricao={[
+                            "OCAP | Primeiro website criado",
+                            "BetPiston | Site de apostas dentro do universo dos «Carros»",
+                            "The City of Data | Uma peça de visualização de dados que convoca temas da atualidade"
+                        ]}
+                    />
                 </div>
             </div>
             
