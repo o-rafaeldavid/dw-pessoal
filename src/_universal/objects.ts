@@ -30,7 +30,7 @@ export const projectsToChoose = [
     "motion graphics",
     "programação",
     "web",
-    "apps"
+    "apps & vídeo"
 ]
 
 // secções da journey
