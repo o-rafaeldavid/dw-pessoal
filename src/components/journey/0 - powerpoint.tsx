@@ -1,5 +1,9 @@
+import ImageSlide from "../imageSlide"
 
 import deuses_0 from "../../assets/img/topicos/0 - powerpoint/deuses_0.png"
+import pombalina_0 from "../../assets/img/topicos/0 - powerpoint/pombalina_0.png"
+import rawls_1 from "../../assets/img/topicos/0 - powerpoint/rawls_1.png"
+
 
 export default function PowerpointSection(){
     return(
@@ -16,7 +20,7 @@ export default function PowerpointSection(){
                     </p>
                 </div>
                 <div className="image">
-                    <img alt="" src={deuses_0}/>
+                    <ImageSlide imagens={[deuses_0, pombalina_0, rawls_1]}/>
                     <span>Powerpoints criados à uns anos</span>
                 </div>
             </div>

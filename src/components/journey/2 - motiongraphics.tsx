@@ -1,7 +1,23 @@
+import viagem_a_marte from "../../assets/img/topicos/2 - motion graphics/VIAGEM A MARTE THUMBNAIL.jpg"
+
 export default function MotionGraphicsSection(){
     return(
         <>
-            <div></div>
+            <div className="centerTextImg">
+                <div className="text">
+                    <p>
+                        Como consequência da evolução no Design Vetorial, veio o interesse por Motion Graphics também nesse ramo.
+                        Não foi algo que tenha explorado muito, mas foi e ainda é algo que me suscita muito fascínio.
+                    </p>
+                    <p>
+                        Tive uma forte inspiração no canal <a href="https://www.youtube.com/@kurzgesagt" target="_blank">Kurzgesagt – In a Nutshell </a>.
+                    </p>
+                </div>
+                <div className="image">
+                    <img alt="" src={viagem_a_marte}/>
+                    <span>video de "a viagem a marte" | uma trabalho do secundário </span>
+                </div>
+            </div>
             
             <h3>MOTION GRAPHICS</h3>
         </>
